@@ -2,16 +2,58 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Mini Roguelike</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>던전의 망자들</title>
     <style>
-        body { background: #111; color: #eee; font-family: monospace; }
-        #game { line-height: 1.2; font-size: 22px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: linear-gradient(135deg, #0a0a0a, #1a1a2e); color: #e6e6e6; font-family: 'Segoe UI', sans-serif; min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; padding: 10px; }
+        #app { max-width: 480px; width: 100%; }
+        .card { background: #1e1e2e; border-radius: 12px; padding: 20px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .title { text-align: center; font-size: 2em; margin: 20px 0; }
+        .subtitle { text-align: center; color: #aaa; margin-bottom: 20px; }
+        .btn { display: block; width: 100%; padding: 14px; margin: 8px 0; border: none; border-radius: 8px; font-size: 1em; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+        .btn-primary { background: #4a6fa5; color: white; }
+        .btn-primary:hover { background: #5a8fbf; }
+        .btn-danger { background: #a54a4a; color: white; }
+        .btn-danger:hover { background: #bf5a5a; }
+        .btn-success { background: #4aa56a; color: white; }
+        .btn-success:hover { background: #5abf7a; }
+        .btn-secondary { background: #444; color: #ccc; }
+        .btn-secondary:hover { background: #555; }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn-skill { background: #2a2a4a; color: #ddd; border: 1px solid #444; min-height: 50px; text-align: left; padding: 10px 14px; }
+        .btn-skill:hover:not(:disabled) { background: #3a3a5a; border-color: #666; }
+        .hp-bar-bg { background: #333; border-radius: 6px; height: 22px; overflow: hidden; margin: 4px 0; position: relative; }
+        .hp-bar { height: 100%; border-radius: 6px; transition: width 0.3s; }
+        .hp-bar-player { background: linear-gradient(90deg, #e74c3c, #ff6b6b); }
+        .hp-bar-enemy { background: linear-gradient(90deg, #e67e22, #f39c12); }
+        .hp-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.8em; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
+        .log { background: #111; border-radius: 8px; padding: 10px; max-height: 120px; overflow-y: auto; font-size: 0.85em; line-height: 1.6; color: #aaa; }
+        .log-line { border-bottom: 1px solid #222; padding: 2px 0; }
+        .enemy-display { text-align: center; font-size: 4em; margin: 10px 0; }
+        .stat-row { display: flex; justify-content: space-between; margin: 4px 0; font-size: 0.9em; }
+        .stat-label { color: #888; }
+        .floor-info { text-align: center; color: #f1c40f; font-weight: bold; margin-bottom: 8px; }
+        .soulstone { color: #a78bfa; }
+        .job-card { background: #222; border-radius: 8px; padding: 14px; margin: 8px 0; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+        .job-card:hover { border-color: #4a6fa5; }
+        .job-card.locked { opacity: 0.5; }
+        .event-card { background: #2a2a3a; border-radius: 8px; padding: 16px; margin: 10px 0; }
+        .cooldown-badge { background: #e74c3c; color: white; border-radius: 4px; padding: 1px 6px; font-size: 0.75em; margin-left: 6px; }
+        .equip-info { font-size: 0.85em; color: #8ae; margin: 2px 0; }
+        .divider { border: none; border-top: 1px solid #333; margin: 12px 0; }
+        .text-center { text-align: center; }
+        .text-gold { color: #f1c40f; }
+        .text-red { color: #e74c3c; }
+        .text-green { color: #2ecc71; }
+        .text-blue { color: #3498db; }
+        .mb-8 { margin-bottom: 8px; }
+        .mt-8 { margin-top: 8px; }
+        @media (max-width: 480px) { body { padding: 5px; } .card { padding: 14px; } .title { font-size: 1.6em; } }
     </style>
 </head>
 <body>
-    <h1>🗡️ Mini Roguelike</h1>
-    <pre id="game"></pre>
-    <p>⬆️⬇️⬅️➡️ 방향키로 이동!</p>
+    <div id="app"></div>
     <script src="game.js"></script>
 </body>
 </html>
